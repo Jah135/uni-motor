@@ -1,4 +1,4 @@
-package frc.robot.motor;
+package frc.robot.config;
 
 public class UniversalConfig {
     public enum IdleMode {
@@ -20,23 +20,11 @@ public class UniversalConfig {
         }
     }
 
-    public int _followId = 0;
     public int _currentLimit = 0;
     public double _voltageCompensation = 12;
     public boolean _isInverted = false;
 
     public IdleMode _idleMode = IdleMode.BRAKE;
-
-    // public UniversalConfig() {}
-
-    public UniversalConfig follow(int followId) {
-        this._followId = followId;
-        return this;
-    }
-    public UniversalConfig follow(UniversalMotor motor) {
-        this._followId = motor.getDeviceId();
-        return this;
-    }
     
     public UniversalConfig voltageCompensation(Double nominalVoltage) {
         this._voltageCompensation = nominalVoltage;
