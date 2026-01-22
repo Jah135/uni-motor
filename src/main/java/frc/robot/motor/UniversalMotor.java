@@ -26,6 +26,8 @@ public class UniversalMotor {
     private MotorBrand brand;
     private MotorInterface motor;
 
+    private boolean isFollower = false;
+
     /**
      * Constructs a universal motor interface for the specified motor brand.
      * @param brand The brand of the motor.
@@ -91,6 +93,8 @@ public class UniversalMotor {
      * @param master The motor to follow.
      */
     public void follow(UniversalMotor master) {
+        isFollower = true;
+
         motor.follow(master);
     }
 
@@ -99,6 +103,11 @@ public class UniversalMotor {
      * @param voltage The voltage to set.
      */
     public void setVoltage(double voltage) {
+        if (isFollower) {
+            // TODO: make this throw an error
+            return;
+        }
+
         followers.forEach(followerMotor -> followerMotor.setVoltage(voltage));
 
         motor.setVoltage(voltage);
@@ -117,6 +126,14 @@ public class UniversalMotor {
      */
     public double getPosition() {
         return motor.getPosition();
+    }
+
+    /**
+     * Returns the velocity of this motor.
+     * @return The velocity of this motor.
+     */
+    public double getVelocity() {
+        return motor.getVelocity();
     }
 
     /**

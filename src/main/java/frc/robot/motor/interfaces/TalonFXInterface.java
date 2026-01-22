@@ -8,20 +8,24 @@ import com.ctre.phoenix6.signals.InvertedValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 
 import edu.wpi.first.units.measure.Angle;
+import edu.wpi.first.units.measure.AngularVelocity;
 import edu.wpi.first.units.measure.Temperature;
 import edu.wpi.first.units.measure.Voltage;
 import frc.robot.config.UniversalConfig;
 
-public class TalonFXInterface extends MotorInterface {
+public class TalonFXInterface implements MotorInterface {
     private TalonFX motor;
-    private StatusSignal<Temperature> signalTemperature;
-    private StatusSignal<Angle> signalPosition;
-    private StatusSignal<Voltage> signalVoltage;
+
+    private StatusSignal<Temperature> temperatureSignal;
+    private StatusSignal<Angle> positionSignal;
+    private StatusSignal<Voltage> voltageSignal;
+    private StatusSignal<AngularVelocity> velocitySignal;
 
     private void setup() {
-        signalTemperature = motor.getDeviceTemp();
-        signalPosition = motor.getPosition();
-        signalVoltage = motor.getMotorVoltage();
+        temperatureSignal = motor.getDeviceTemp();
+        positionSignal = motor.getPosition();
+        voltageSignal = motor.getMotorVoltage();
+        velocitySignal = motor.getVelocity();
     }
 
     public TalonFXInterface(int deviceId) {
@@ -52,17 +56,18 @@ public class TalonFXInterface extends MotorInterface {
     }
 
     public double getVoltage() {
-        // return motor.getMotorVoltage().getValueAsDouble();
-        return signalVoltage.getValueAsDouble();
+        return voltageSignal.getValueAsDouble();
     }
 
     public double getPosition() {
-        // return motor.getPosition().getValueAsDouble();
-        return signalPosition.getValueAsDouble();
+        return positionSignal.getValueAsDouble();
+    }
+
+    public double getVelocity() {
+        return velocitySignal.getValueAsDouble();
     }
 
     public double getTemperature() {
-        // return motor.getDeviceTemp().getValueAsDouble();
-        return signalTemperature.getValueAsDouble();
+        return temperatureSignal.getValueAsDouble();
     }
 }

@@ -2,16 +2,16 @@ package frc.robot.motor.interfaces;
 
 import com.revrobotics.spark.SparkAbsoluteEncoder;
 import com.revrobotics.spark.SparkMax;
-import com.revrobotics.spark.SparkBase.PersistMode;
-import com.revrobotics.spark.SparkBase.ResetMode;
 import com.revrobotics.spark.config.SparkBaseConfig.IdleMode;
+import com.revrobotics.ResetMode;
+import com.revrobotics.PersistMode;
 
 import frc.robot.config.UniversalConfig;
 
 import com.revrobotics.spark.config.SparkMaxConfig;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 
-public class SparkMaxInterface extends MotorInterface {
+public class SparkMaxInterface implements MotorInterface {
     private SparkMax motor;
     private SparkAbsoluteEncoder encoder;
 
@@ -29,14 +29,8 @@ public class SparkMaxInterface extends MotorInterface {
         sparkConfig.voltageCompensation(config._voltageCompensation);
         sparkConfig.smartCurrentLimit(config._currentLimit);
 
-        motor.configure(sparkConfig, ResetMode.kResetSafeParameters, PersistMode.kNoPersistParameters);
+        motor.configure(sparkConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
     }
-
-    // should this modify the config to use follow?
-    // i'm just gonna make it use the default implementation for all interfaces
-    // public void follow(UniversalMotor master) {
-
-    // }
 
     public void setVoltage(double voltage) {
         motor.setVoltage(voltage);
@@ -48,6 +42,10 @@ public class SparkMaxInterface extends MotorInterface {
 
     public double getPosition() {
         return encoder.getPosition();
+    }
+
+    public double getVelocity() {
+        return encoder.getVelocity();
     }
 
     public double getTemperature() {

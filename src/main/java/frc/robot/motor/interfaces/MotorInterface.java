@@ -3,21 +3,21 @@ package frc.robot.motor.interfaces;
 import frc.robot.config.UniversalConfig;
 import frc.robot.motor.UniversalMotor;
 
-public abstract class MotorInterface {
-    boolean isFollower = false;
+/**
+ * A generic interface for motors.
+ */
+public interface MotorInterface {
+    public void configure(UniversalConfig config);
 
-    public abstract void configure(UniversalConfig config);
-
-    public abstract void setVoltage(double voltage);
-    public abstract double getVoltage();
+    public void setVoltage(double voltage);
+    public double getVoltage();
     
-    public abstract double getPosition();
+    public double getPosition();
+    public double getVelocity();
     
-    public abstract double getTemperature();
+    public double getTemperature();
 
-    public void follow(UniversalMotor master) {
-        isFollower = true;
-        
+    public default void follow(UniversalMotor master) {        
         master.addFollower(this);
     };
 }
