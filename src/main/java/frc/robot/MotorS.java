@@ -5,11 +5,11 @@ import frc.robot.config.UniversalConfig;
 import frc.robot.motor.UniversalMotor;
 import frc.robot.motor.UniversalMotor.MotorBrand;
 
-public class TestS extends SubsystemBase {
+public class MotorS extends SubsystemBase {
     UniversalMotor masterMotor;
     UniversalMotor followerMotor;
 
-    public TestS() {
+    public MotorS() {
         masterMotor = new UniversalMotor(MotorBrand.CAN_BRUSHLESS, 30);
 
         followerMotor = new UniversalMotor(MotorBrand.CAN_BRUSHLESS, 32);

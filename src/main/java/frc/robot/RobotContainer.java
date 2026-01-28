@@ -11,14 +11,14 @@ import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 public class RobotContainer {
   public static final CommandXboxController DRIVER_CONTROLLER = new CommandXboxController(0);
 
-  private final TestS subsystem = new TestS();
+  private final SwerveS subsystem = new SwerveS();
 
   public RobotContainer() {
     configureBindings();
   }
 
   private void configureBindings() {
-    subsystem.setDefaultCommand(new TestC(subsystem));
+    subsystem.setDefaultCommand(new SwerveC(subsystem));
   }
 
   public Command getAutonomousCommand() {

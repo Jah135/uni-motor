@@ -2,10 +2,10 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj2.command.Command;
 
-public class TestC extends Command {
-    private TestS subsystem;
+public class MotorC extends Command {
+    private MotorS subsystem;
 
-    public TestC(TestS subsystem) {
+    public MotorC(MotorS subsystem) {
         addRequirements(subsystem);
         this.subsystem = subsystem;
     }
