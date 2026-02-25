@@ -67,7 +67,7 @@ public class TalonFXInterface implements MotorInterface {
         return positionSignal.getValue().in(Rotations);
     }
 
-    public double getVelocity() {
+    public double getAngularVelocity() {
         return velocitySignal.getValue().in(RotationsPerSecond);
     }
 

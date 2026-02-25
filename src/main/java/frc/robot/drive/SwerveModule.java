@@ -4,11 +4,12 @@ import edu.wpi.first.math.controller.PIDController;
 import frc.robot.motor.UniversalMotor;
 
 public class SwerveModule {
-    static public class SwerveTuning {
+    static public class SwerveConstants {
         public double driveKP, driveKI, driveKD;
         public double turnKP, turnKI, turnKD;
+        public double wheelRadius;
 
-        public SwerveTuning(double driveKP, double driveKI, double driveKD, double turnKP, double turnKI, double turnKD) {
+        public SwerveConstants(double driveKP, double driveKI, double driveKD, double turnKP, double turnKI, double turnKD, double wheelRadius) {
             this.driveKP = driveKP;
             this.driveKI = driveKI;
             this.driveKD = driveKD;
@@ -16,24 +17,31 @@ public class SwerveModule {
             this.turnKP = turnKP;
             this.turnKI = turnKI;
             this.turnKD = turnKD;
+
+            this.wheelRadius = wheelRadius;
         }
     }
     
     public UniversalMotor driveMotor;
     public UniversalMotor turnMotor;
 
+    SwerveConstants constants;
     PIDController turnController, driveController;
 
-    public SwerveModule(UniversalMotor drive, UniversalMotor turn, SwerveTuning tuning) {
+    public SwerveModule(UniversalMotor drive, UniversalMotor turn, SwerveConstants constants) {
         this.driveMotor = drive;
         this.turnMotor = turn;
 
-        turnController = new PIDController(tuning.turnKP, tuning.turnKI, tuning.turnKD);
+        this.constants = constants;
+
+        turnController = new PIDController(constants.turnKP, constants.turnKI, constants.turnKD);
         turnController.enableContinuousInput(0, Math.PI * 2);
-        driveController = new PIDController(tuning.driveKP, tuning.driveKI, tuning.driveKD);
+        driveController = new PIDController(constants.driveKP, constants.driveKI, constants.driveKD);
+
     }
 
     public void update(double targetAngle, double targetSpeed) {
-        
+        turnMotor.setVoltage(turnController.calculate(turnMotor.getPosition() * Math.PI * 2, targetAngle));
+        driveMotor.setVoltage(driveController.calculate(driveMotor.getAngularVelocity() * constants.wheelRadius, targetSpeed));
     }
 }

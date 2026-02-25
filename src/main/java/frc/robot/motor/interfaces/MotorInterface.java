@@ -29,7 +29,7 @@ public interface MotorInterface {
     /**
      * Should return the velocity of the motor in rotations per second.
      */
-    public double getVelocity();
+    public double getAngularVelocity();
     
     /**
      * Should return the temperature of the motor in Celsius.

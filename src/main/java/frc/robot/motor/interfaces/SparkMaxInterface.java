@@ -44,7 +44,7 @@ public class SparkMaxInterface implements MotorInterface {
         return encoder.getPosition();
     }
 
-    public double getVelocity() {
+    public double getAngularVelocity() {
         return encoder.getVelocity() / 60;
     }
 

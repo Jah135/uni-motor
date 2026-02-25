@@ -113,7 +113,6 @@ public class UniversalMotor {
         motor.setVoltage(voltage);
     }
     /**
-     * Returns the set voltage of this motor.
      * @return The voltage of this motor.
      */
     public double getVoltage() {
@@ -121,7 +120,6 @@ public class UniversalMotor {
     }
 
     /**
-     * Returns the absolute position of this motor in rotations.
      * @return The absolute position of this motor in rotations.
      */
     public double getPosition() {
@@ -129,15 +127,13 @@ public class UniversalMotor {
     }
 
     /**
-     * Returns the velocity of this motor.
-     * @return The velocity of this motor.
+     * @return The angular velocity of this motor.
      */
-    public double getVelocity() {
-        return motor.getVelocity();
+    public double getAngularVelocity() {
+        return motor.getAngularVelocity();
     }
 
     /**
-     * Returns the temperature of this motor in Celsius.
      * @return The temperature of this motor in Celsius.
      */
     public double getTemperature() {
@@ -145,14 +141,12 @@ public class UniversalMotor {
     }
 
     /**
-     * Returns the device id of this motor.
      * @return The device id of this motor.
      */
     public int getDeviceId() {
         return this.deviceId;
     }
     /**
-     * Returns the brand of this motor.
      * @return The brand of this motor.
      */
     public MotorBrand getMotorBrand() {
