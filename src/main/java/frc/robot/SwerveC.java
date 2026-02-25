@@ -13,6 +13,6 @@ public class SwerveC extends Command {
     @Override
     public void execute() {
         // subsystem.setVoltage(RobotContainer.DRIVER_CONTROLLER.getLeftY() * 3.5);
-        subsystem.set(0, 0);
+        subsystem.set(0, 1.0);
     }
 }

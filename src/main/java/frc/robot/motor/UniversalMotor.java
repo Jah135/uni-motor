@@ -121,8 +121,8 @@ public class UniversalMotor {
     }
 
     /**
-     * Returns the absolute position of this motor.
-     * @return The absolute position of this motor.
+     * Returns the absolute position of this motor in rotations.
+     * @return The absolute position of this motor in rotations.
      */
     public double getPosition() {
         return motor.getPosition();

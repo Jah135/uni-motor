@@ -1,5 +1,9 @@
 package frc.robot.motor.interfaces;
 
+import static edu.wpi.first.units.Units.Celsius;
+import static edu.wpi.first.units.Units.Rotations;
+import static edu.wpi.first.units.Units.RotationsPerSecond;
+
 import com.ctre.phoenix6.CANBus;
 import com.ctre.phoenix6.StatusSignal;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
@@ -41,10 +45,10 @@ public class TalonFXInterface implements MotorInterface {
 
     public void configure(UniversalConfig config) {
         TalonFXConfiguration talonConfig = new TalonFXConfiguration();
-        talonConfig.MotorOutput.Inverted = config._isInverted ? InvertedValue.Clockwise_Positive : InvertedValue.CounterClockwise_Positive;
+        talonConfig.MotorOutput.Inverted = config.isInverted ? InvertedValue.Clockwise_Positive : InvertedValue.CounterClockwise_Positive;
         // why is it called valueOf???? this makes no sense
         // why is configuring talons such a JOY i LOVE talons, i am so JOLLY right now!
-        talonConfig.MotorOutput.NeutralMode = NeutralModeValue.valueOf(config._idleMode.value); // will break if for whatever reason COAST != 0 and IDLE != 1, or some other neutral mode is invented.
+        talonConfig.MotorOutput.NeutralMode = NeutralModeValue.valueOf(config.idleMode.value); // will break if for whatever reason COAST != 0 and IDLE != 1, or some other neutral mode is invented.
         talonConfig.CurrentLimits.SupplyCurrentLimit = config._currentLimit;
         // THERE IS NO FOLLOW METHOD FOR TALONS DO WE HAVE TO MAKE OUR OWN FUCK
         
@@ -60,14 +64,14 @@ public class TalonFXInterface implements MotorInterface {
     }
 
     public double getPosition() {
-        return positionSignal.getValueAsDouble();
+        return positionSignal.getValue().in(Rotations);
     }
 
     public double getVelocity() {
-        return velocitySignal.getValueAsDouble();
+        return velocitySignal.getValue().in(RotationsPerSecond);
     }
 
     public double getTemperature() {
-        return temperatureSignal.getValueAsDouble();
+        return temperatureSignal.getValue().in(Celsius);
     }
 }

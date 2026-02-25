@@ -21,13 +21,13 @@ public class UniversalConfig {
     }
 
     public int _currentLimit = 0;
-    public double _voltageCompensation = 12;
-    public boolean _isInverted = false;
+    public double voltageCompensation = 12;
+    public boolean isInverted = false;
 
-    public IdleMode _idleMode = IdleMode.BRAKE;
+    public IdleMode idleMode = IdleMode.BRAKE;
     
     public UniversalConfig voltageCompensation(Double nominalVoltage) {
-        this._voltageCompensation = nominalVoltage;
+        this.voltageCompensation = nominalVoltage;
         return this;
     }
     public UniversalConfig smartCurrentLimit(int currentAmps) {
@@ -36,12 +36,12 @@ public class UniversalConfig {
     }
 
     public UniversalConfig idleMode(IdleMode idleMode) {
-        this._idleMode = idleMode;
+        this.idleMode = idleMode;
         return this;
     }
 
     public UniversalConfig invert(boolean inverted) {
-        this._isInverted = inverted;
+        this.isInverted = inverted;
         return this;
     }
 }

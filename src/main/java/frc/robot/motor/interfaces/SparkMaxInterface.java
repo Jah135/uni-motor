@@ -24,9 +24,9 @@ public class SparkMaxInterface implements MotorInterface {
         SparkMaxConfig sparkConfig = new SparkMaxConfig();
         // sparkConfig.follow(config._followId); // thank you revrobotics for having a
         // follow method
-        sparkConfig.inverted(config._isInverted);
-        sparkConfig.idleMode(IdleMode.fromId(config._idleMode.value));
-        sparkConfig.voltageCompensation(config._voltageCompensation);
+        sparkConfig.inverted(config.isInverted);
+        sparkConfig.idleMode(IdleMode.fromId(config.idleMode.value));
+        sparkConfig.voltageCompensation(config.voltageCompensation);
         sparkConfig.smartCurrentLimit(config._currentLimit);
 
         motor.configure(sparkConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
@@ -45,7 +45,7 @@ public class SparkMaxInterface implements MotorInterface {
     }
 
     public double getVelocity() {
-        return encoder.getVelocity();
+        return encoder.getVelocity() / 60;
     }
 
     public double getTemperature() {
