@@ -15,7 +15,7 @@ public class SparkMaxInterface implements MotorInterface {
 	private SparkMax motor;
 	private SparkAbsoluteEncoder encoder;
 
-	private final double ROTSPM_TO_RADSPS = 1 / 60 * Math.PI * 2;
+	private final double ROTS_PER_MIN_TO_RADS_PER_SEC = 1 / 60 * Math.PI * 2;
 	private final double ROTS_TO_RADS = Math.PI * 2;
 
 	public SparkMaxInterface(int deviceId, MotorType motorType) {
@@ -46,7 +46,7 @@ public class SparkMaxInterface implements MotorInterface {
 	}
 
 	public double getAngularVelocity() {
-		return encoder.getVelocity() * ROTSPM_TO_RADSPS;
+		return encoder.getVelocity() * ROTS_PER_MIN_TO_RADS_PER_SEC;
 	}
 
 	public double getTemperature() {
