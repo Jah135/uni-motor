@@ -12,7 +12,7 @@ public class MotorS extends SubsystemBase {
 	public MotorS() {
 		masterMotor = new UniversalMotor(MotorBrand.CAN_BRUSHLESS, 30);
 		followerMotor = new UniversalMotor(MotorBrand.CAN_BRUSHLESS, 32);
-		followerMotor.configure(new UniversalConfig().set_inverted(true));
+		followerMotor.configure(new UniversalConfig().setInverted(true));
 		followerMotor.follow(masterMotor);
 	}
 
