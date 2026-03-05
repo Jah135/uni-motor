@@ -11,7 +11,7 @@ public class UniversalConfig {
 			this.value = value;
 		}
 
-		public static IdleMode from_id(int id) {
+		public static IdleMode fromId(int id) {
 			if (id == 0) {
 				return COAST;
 			}
