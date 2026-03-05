@@ -12,43 +12,44 @@ import com.revrobotics.spark.config.SparkMaxConfig;
 import com.revrobotics.spark.SparkLowLevel.MotorType;
 
 public class SparkMaxInterface implements MotorInterface {
-    private SparkMax motor;
-    private SparkAbsoluteEncoder encoder;
+	private SparkMax motor;
+	private SparkAbsoluteEncoder encoder;
 
-    public SparkMaxInterface(int deviceId, MotorType motorType) {
-        this.motor = new SparkMax(deviceId, motorType);
-        this.encoder = motor.getAbsoluteEncoder();
-    }
+	private final double ROTSPM_TO_RADSPS = 1 / 60 * Math.PI * 2;
+	private final double ROTS_TO_RADS = Math.PI * 2;
 
-    public void configure(UniversalConfig config) {
-        SparkMaxConfig sparkConfig = new SparkMaxConfig();
-        // sparkConfig.follow(config._followId); // thank you revrobotics for having a
-        // follow method
-        sparkConfig.inverted(config.isInverted);
-        sparkConfig.idleMode(IdleMode.fromId(config.idleMode.value));
-        sparkConfig.voltageCompensation(config.voltageCompensation);
-        sparkConfig.smartCurrentLimit(config._currentLimit);
+	public SparkMaxInterface(int deviceId, MotorType motorType) {
+		this.motor = new SparkMax(deviceId, motorType);
+		this.encoder = motor.getAbsoluteEncoder();
+	}
 
-        motor.configure(sparkConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
-    }
+	public void configure(UniversalConfig config) {
+		SparkMaxConfig sparkConfig = new SparkMaxConfig();
+		sparkConfig.inverted(config.isInverted);
+		sparkConfig.idleMode(IdleMode.fromId(config.idleMode.value));
+		sparkConfig.voltageCompensation(config.voltageCompensation);
+		sparkConfig.smartCurrentLimit(config.currentLimit);
 
-    public void setVoltage(double voltage) {
-        motor.setVoltage(voltage);
-    }
+		motor.configure(sparkConfig, ResetMode.kResetSafeParameters, PersistMode.kPersistParameters);
+	}
 
-    public double getVoltage() {
-        return motor.getBusVoltage() * motor.getAppliedOutput();
-    }
+	public void setVoltage(double voltage) {
+		motor.setVoltage(voltage);
+	}
 
-    public double getPosition() {
-        return encoder.getPosition();
-    }
+	public double getVoltage() {
+		return motor.getBusVoltage() * motor.getAppliedOutput();
+	}
 
-    public double getAngularVelocity() {
-        return encoder.getVelocity() / 60;
-    }
+	public double getPosition() {
+		return encoder.getPosition() * ROTS_TO_RADS;
+	}
 
-    public double getTemperature() {
-        return motor.getMotorTemperature();
-    }
+	public double getAngularVelocity() {
+		return encoder.getVelocity() * ROTSPM_TO_RADSPS;
+	}
+
+	public double getTemperature() {
+		return motor.getMotorTemperature();
+	}
 }

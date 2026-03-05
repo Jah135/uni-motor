@@ -1,8 +1,8 @@
 package frc.robot.motor.interfaces;
 
 import static edu.wpi.first.units.Units.Celsius;
-import static edu.wpi.first.units.Units.Rotations;
-import static edu.wpi.first.units.Units.RotationsPerSecond;
+import static edu.wpi.first.units.Units.Radian;
+import static edu.wpi.first.units.Units.RadiansPerSecond;
 
 import com.ctre.phoenix6.CANBus;
 import com.ctre.phoenix6.StatusSignal;
@@ -18,60 +18,57 @@ import edu.wpi.first.units.measure.Voltage;
 import frc.robot.config.UniversalConfig;
 
 public class TalonFXInterface implements MotorInterface {
-    private TalonFX motor;
+	private TalonFX motor;
 
-    private StatusSignal<Temperature> temperatureSignal;
-    private StatusSignal<Angle> positionSignal;
-    private StatusSignal<Voltage> voltageSignal;
-    private StatusSignal<AngularVelocity> velocitySignal;
+	private StatusSignal<Temperature> temperatureSignal;
+	private StatusSignal<Angle> positionSignal;
+	private StatusSignal<Voltage> voltageSignal;
+	private StatusSignal<AngularVelocity> velocitySignal;
 
-    private void setup() {
-        temperatureSignal = motor.getDeviceTemp();
-        positionSignal = motor.getPosition();
-        voltageSignal = motor.getMotorVoltage();
-        velocitySignal = motor.getVelocity();
-    }
+	private void setup() {
+		temperatureSignal = motor.getDeviceTemp();
+		positionSignal = motor.getPosition();
+		voltageSignal = motor.getMotorVoltage();
+		velocitySignal = motor.getVelocity();
+	}
 
-    public TalonFXInterface(int deviceId) {
-        this.motor = new TalonFX(deviceId);
+	public TalonFXInterface(int deviceId) {
+		this.motor = new TalonFX(deviceId);
 
-        setup();
-    }
-    public TalonFXInterface(int deviceId, CANBus bus) { // CANBus, because String was just too convenient huh
-        this.motor = new TalonFX(deviceId, bus);
+		setup();
+	}
+	public TalonFXInterface(int deviceId, CANBus bus) { // CANBus, because String was just too convenient huh
+		this.motor = new TalonFX(deviceId, bus);
 
-        setup();
-    }
+		setup();
+	}
 
-    public void configure(UniversalConfig config) {
-        TalonFXConfiguration talonConfig = new TalonFXConfiguration();
-        talonConfig.MotorOutput.Inverted = config.isInverted ? InvertedValue.Clockwise_Positive : InvertedValue.CounterClockwise_Positive;
-        // why is it called valueOf???? this makes no sense
-        // why is configuring talons such a JOY i LOVE talons, i am so JOLLY right now!
-        talonConfig.MotorOutput.NeutralMode = NeutralModeValue.valueOf(config.idleMode.value); // will break if for whatever reason COAST != 0 and IDLE != 1, or some other neutral mode is invented.
-        talonConfig.CurrentLimits.SupplyCurrentLimit = config._currentLimit;
-        // THERE IS NO FOLLOW METHOD FOR TALONS DO WE HAVE TO MAKE OUR OWN FUCK
-        
-        motor.getConfigurator().apply(talonConfig);
-    }
+	public void configure(UniversalConfig config) {
+		TalonFXConfiguration talonConfig = new TalonFXConfiguration();
+		talonConfig.MotorOutput.Inverted = config.isInverted ? InvertedValue.Clockwise_Positive : InvertedValue.CounterClockwise_Positive;
+		talonConfig.MotorOutput.NeutralMode = NeutralModeValue.valueOf(config.idleMode.value);
+		talonConfig.CurrentLimits.SupplyCurrentLimit = config.currentLimit;
+		
+		motor.getConfigurator().apply(talonConfig);
+	}
 
-    public void setVoltage(double voltage) {
-        motor.setVoltage(voltage);
-    }
+	public void setVoltage(double voltage) {
+		motor.setVoltage(voltage);
+	}
 
-    public double getVoltage() {
-        return voltageSignal.getValueAsDouble();
-    }
+	public double getVoltage() {
+		return voltageSignal.getValueAsDouble();
+	}
 
-    public double getPosition() {
-        return positionSignal.getValue().in(Rotations);
-    }
+	public double getPosition() {
+		return positionSignal.getValue().in(Radian);
+	}
 
-    public double getAngularVelocity() {
-        return velocitySignal.getValue().in(RotationsPerSecond);
-    }
+	public double getAngularVelocity() {
+		return velocitySignal.getValue().in(RadiansPerSecond);
+	}
 
-    public double getTemperature() {
-        return temperatureSignal.getValue().in(Celsius);
-    }
+	public double getTemperature() {
+		return temperatureSignal.getValue().in(Celsius);
+	}
 }
