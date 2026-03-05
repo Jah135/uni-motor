@@ -111,15 +111,21 @@ public class UniversalMotor {
 	}
 
 	/**
-	 * Applies a voltage to this motor to reach the setpoint, by using a built-in PID controller.
+	 * Applies a voltage to this motor to reach the setpoint, by using a PID controller.
+	 * Must be called continuously/periodically.
 	 * @param setpointRadians
 	 */
 	public void setPosition(double setpointRadians) {
 		setVoltage(builtinPID.calculate(getPosition(), setpointRadians));
 	}
 
-	public void setSpeed(double rps) {
-
+	/**
+	 * Applies a voltage to this motor to reach the desired speed, by using a PID controller.
+	 * Must be called continuously/periodically.
+	 * @param speedRadsPerSec
+	 */
+	public void setSpeed(double speedRadsPerSec) {
+		setVoltage(builtinPID.calculate(getAngularVelocity(), speedRadsPerSec));
 	}
 	
 	/**
