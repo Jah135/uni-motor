@@ -1,6 +1,7 @@
-package frc.robot;
+package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.subsystems.SwerveS;
 
 public class SwerveC extends Command {
     private SwerveS subsystem;
