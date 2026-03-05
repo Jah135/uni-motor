@@ -174,24 +174,24 @@ public class UniversalMotor {
 
 	/**
 	 * INTERNAL METHOD; DO NOT USE
-	 * @param motor_interface
+	 * @param motorInterface
 	 */
-	public void addFollower(MotorInterface motor_interface) {
-		if (followers.contains(motor_interface)) {
+	public void addFollower(MotorInterface motorInterface) {
+		if (followers.contains(motorInterface)) {
 			return;
 		}
 
-		followers.add(motor_interface);
+		followers.add(motorInterface);
 	}
 	/**
 	 * INTERNAL METHOD; DO NOT USE
-	 * @param motor_interface
+	 * @param motorInterface
 	 */
-	public void removeFollower(MotorInterface motor_interface) {
-		if (!followers.contains(motor_interface)) {
+	public void removeFollower(MotorInterface motorInterface) {
+		if (!followers.contains(motorInterface)) {
 			return;
 		}
 
-		followers.remove(motor_interface);
+		followers.remove(motorInterface);
 	}
 }
