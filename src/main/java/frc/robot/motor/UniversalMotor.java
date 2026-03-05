@@ -110,8 +110,12 @@ public class UniversalMotor {
 		motor.follow(master);
 	}
 
-	public void setPosition(double radians) {
-		setVoltage(builtinPID.calculate(getPosition(), radians));
+	/**
+	 * Applies a voltage to this motor to reach the setpoint, by using a built-in PID controller.
+	 * @param setpointRadians
+	 */
+	public void setPosition(double setpointRadians) {
+		setVoltage(builtinPID.calculate(getPosition(), setpointRadians));
 	}
 
 	public void setSpeed(double rps) {
